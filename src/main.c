@@ -1,4 +1,6 @@
+#include "../include/cpu.h"
+
 int main() {
-    // TODO
+    init();
     return 0;
 }

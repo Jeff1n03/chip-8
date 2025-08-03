@@ -1,4 +1,6 @@
 #ifndef CPU_H
 #define CPU_H
-// TODO
+
+void init(); // Initializes CPU
+
 #endif
