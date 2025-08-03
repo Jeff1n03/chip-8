@@ -1,6 +1,6 @@
 #include "../include/cpu.h"
 
 int main() {
-    init();
+    loadSprites();
     return 0;
 }

@@ -1,17 +1,16 @@
 #include "../include/cpu.h"
 #include <stdint.h>
 
-uint8_t Mem[4096];   // Memory
-uint8_t V[16];       // General Purpose Registers (VF or V15 is carry flag)
-uint16_t I;          // Register for Storing Address (only lowest 12-bits used)
-uint16_t PC = 0x200; // Program Counter
-uint16_t SP = 0x1FF; // Stack Pointer (descending, empty)
-uint8_t DT;          // Delay Timer
-uint8_t ST;          // Sound Timer
+uint8_t Mem[4096];   // memory array
+uint8_t V[16];       // general purpose registers (VF or V[15] is carry flag)
+uint16_t I;          // register for storing address (only lowest 12-bits used)
+uint16_t PC = 0x200; // program counter
+uint16_t SP = 0x1FF; // stack pointer (descending, empty)
+uint8_t DT;          // delay timer
+uint8_t ST;          // sound timer
 
-void init() {
+void loadSprites() {
     uint8_t sprites[] = {
-        // 16 5-byte sprites = 80 bytes
         0xF0, 0x90, 0x90, 0x90, 0xF0, 0x20, 0x60, 0x20, 0x20, 0x70, 0xF0, 0x10,
         0xF0, 0x80, 0xF0, 0xF0, 0x10, 0xF0, 0x10, 0xF0, 0x90, 0x90, 0xF0, 0x10,
         0x10, 0xF0, 0x80, 0xF0, 0x10, 0xF0, 0xF0, 0x80, 0xF0, 0x90, 0xF0, 0xF0,
