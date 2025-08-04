@@ -1,15 +1,17 @@
 #include "../include/cpu.h"
-#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
-uint8_t Mem[4096];   // memory array
-uint8_t V[16];       // general purpose registers (VF or V[15] is carry flag)
-uint16_t I;          // register for storing address (only lowest 12-bits used)
-uint16_t PC = 0x200; // program counter
-uint16_t SP = 0x1FF; // stack pointer (descending, empty)
-uint8_t DT;          // delay timer
-uint8_t ST;          // sound timer
-
-void loadSprites() {
+Chip8 *createChip8(uint16_t *instr, int len) {
+    Chip8 *cpu = malloc(sizeof(Chip8));
+    memset(cpu->Disp, 0, sizeof(cpu->Disp));
+    memset(cpu->Mem, 0, sizeof(cpu->Mem));
+    memset(cpu->V, 0, sizeof(cpu->V));
+    cpu->I = 0x0000;
+    cpu->PC = 0x200;
+    cpu->SP = 0x50;
+    cpu->DT = 0x00;
+    cpu->ST = 0x00;
     uint8_t sprites[] = {
         0xF0, 0x90, 0x90, 0x90, 0xF0, 0x20, 0x60, 0x20, 0x20, 0x70, 0xF0, 0x10,
         0xF0, 0x80, 0xF0, 0xF0, 0x10, 0xF0, 0x10, 0xF0, 0x90, 0x90, 0xF0, 0x10,
@@ -18,7 +20,28 @@ void loadSprites() {
         0x10, 0xF0, 0xF0, 0x90, 0xF0, 0x90, 0x90, 0xE0, 0x90, 0xE0, 0x90, 0xE0,
         0xF0, 0x80, 0x80, 0x80, 0xF0, 0xE0, 0x90, 0x90, 0x90, 0xE0, 0xF0, 0x80,
         0xF0, 0x80, 0xF0, 0xF0, 0x80, 0xF0, 0x80, 0x80};
-    for (int i = 0; i < 80; i++) {
-        Mem[i] = sprites[i];
+    for (int i = 0; i < sizeof(sprites); i++) {
+        cpu->Mem[i] = sprites[i];
     }
+    for (int i = 0, j = cpu->PC; i < len && j < sizeof(cpu->Mem); i++, j += 2) {
+        uint8_t most = instr[i] >> 8;
+        uint8_t least = instr[i] & 0x00FF;
+        cpu->Mem[j] = most;
+        cpu->Mem[j + 1] = least;
+    }
+    return cpu;
+}
+
+void destroyChip8(Chip8 *cpu) { free(cpu); }
+
+void CLS(Chip8 *cpu) { memset(cpu->Disp, 0, sizeof(cpu->Disp)); }
+
+void RET(Chip8 *cpu) {
+    // TODO study stack semantics
+}
+
+void JP(Chip8 *cpu, uint16_t addr) { cpu->PC = addr; }
+
+void CALL(Chip8 *cpu, uint16_t addr) {
+    // TODO see line 40
 }

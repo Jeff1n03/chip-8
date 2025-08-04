@@ -1,6 +1,3 @@
-#include "../include/cpu.h"
+#include "../include/chip8.h"
 
-int main() {
-    loadSprites();
-    return 0;
-}
+int main() { return 0; }
