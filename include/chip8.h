@@ -28,4 +28,40 @@ void JP(Chip8 *cpu, uint16_t addr);
 
 void CALL(Chip8 *cpu, uint16_t addr);
 
+void SE_IMM(Chip8 *cpu, int x, uint8_t byte);
+
+void SNE_IMM(Chip8 *cpu, int x, uint8_t byte);
+
+void SE(Chip8 *cpu, int x, int y);
+
+void LD_IMM(Chip8 *cpu, int x, uint8_t byte);
+
+void ADD_IMM(Chip8 *cpu, int x, uint8_t byte);
+
+void LD(Chip8 *cpu, int x, int y);
+
+void OR(Chip8 *cpu, int x, int y);
+
+void AND(Chip8 *cpu, int x, int y);
+
+void XOR(Chip8 *cpu, int x, int y);
+
+void ADD(Chip8 *cpu, int x, int y);
+
+void SUB(Chip8 *cpu, int x, int y);
+
+void SHR(Chip8 *cpu, int x);
+
+void SUBN(Chip8 *cpu, int x, int y);
+
+void SHL(Chip8 *cpu, int x);
+
+void SNE(Chip8 *cpu, int x, int y);
+
+void LD_I(Chip8 *cpu, uint16_t addr);
+
+void JP_V0(Chip8 *cpu, uint16_t addr);
+
+void RND(Chip8 *cpu, int x, uint8_t byte);
+
 #endif
