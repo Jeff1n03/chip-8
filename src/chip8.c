@@ -5,6 +5,7 @@
 Chip8 *createChip8(uint16_t *instr, int len) {
     Chip8 *cpu = malloc(sizeof(Chip8));
     memset(cpu->Disp, 0, sizeof(cpu->Disp));
+    memset(cpu->Input, 0, sizeof(cpu->Input));
     memset(cpu->Mem, 0, sizeof(cpu->Mem));
     memset(cpu->V, 0, sizeof(cpu->V));
     cpu->I = 0x0000;
