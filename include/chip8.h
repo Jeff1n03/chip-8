@@ -4,8 +4,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#define Y 32
+#define X 64
+
 typedef struct {
-        uint8_t Disp[32][64];
+        uint8_t Disp[Y][X];
         uint8_t Input[16];
         uint8_t Mem[4096];
         uint8_t V[16];
@@ -64,5 +67,25 @@ void LD_I(Chip8 *cpu, uint16_t addr);
 void JP_V0(Chip8 *cpu, uint16_t addr);
 
 void RND(Chip8 *cpu, int x, uint8_t byte);
+
+void DRW(Chip8 *cpu, int x, int y, uint8_t nibble);
+
+void SKP(Chip8 *cpu, int x);
+
+void SKNP(Chip8 *cpu, int x);
+
+void LD_DT(Chip8 *cpu, int x);
+
+int LD_K(Chip8 *cpu, int x);
+
+void LD_V_DT(Chip8 *cpu, int x);
+
+void LD_V_ST(Chip8 *cpu, int x);
+
+void ADD_I(Chip8 *cpu, int x);
+
+void LD_F(Chip8 *cpu, int x);
+
+void LD_B(Chip8 *cpu, int x);
 
 #endif

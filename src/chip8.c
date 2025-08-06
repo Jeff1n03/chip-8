@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ADDR_MASK 0x0FFF
+#define NIBBLE_MASK 0x0F
+
 Chip8 *createChip8(uint16_t *instr, int len) {
     Chip8 *cpu = malloc(sizeof(Chip8));
     memset(cpu->Disp, 0, sizeof(cpu->Disp));
@@ -43,13 +46,13 @@ void RET(Chip8 *cpu) {
     cpu->SP -= 2;
 }
 
-void JP(Chip8 *cpu, uint16_t addr) { cpu->PC = addr & 0x0FFF; }
+void JP(Chip8 *cpu, uint16_t addr) { cpu->PC = addr & ADDR_MASK; }
 
 void CALL(Chip8 *cpu, uint16_t addr) {
     cpu->SP += 2;
     cpu->Mem[cpu->SP - 1] = (uint8_t)cpu->PC;
     cpu->Mem[cpu->SP - 2] = (uint8_t)(cpu->PC >> 8);
-    cpu->PC = addr & 0x0FFF;
+    cpu->PC = addr & ADDR_MASK;
 }
 
 void SE_IMM(Chip8 *cpu, int x, uint8_t byte) {
@@ -126,10 +129,63 @@ void SNE(Chip8 *cpu, int x, int y) {
     }
 }
 
-void LD_I(Chip8 *cpu, uint16_t addr) { cpu->I = addr & 0x0FFF; }
+void LD_I(Chip8 *cpu, uint16_t addr) { cpu->I = addr & ADDR_MASK; }
 
-void JP_V0(Chip8 *cpu, uint16_t addr) { cpu->PC = (addr & 0x0FFF) + cpu->V[0]; }
+void JP_V0(Chip8 *cpu, uint16_t addr) {
+    cpu->PC = (addr & ADDR_MASK) + cpu->V[0];
+}
 
 void RND(Chip8 *cpu, int x, uint8_t byte) {
     cpu->V[x] = (uint8_t)(rand() % 256) & byte;
+}
+
+void DRW(Chip8 *cpu, int x, int y, uint8_t nibble) {
+    cpu->V[15] = 0;
+    for (int i = 0; i < (nibble & NIBBLE_MASK); i++) {
+        for (int j = 0; j < 8; j++) {
+            uint8_t bit = (cpu->Mem[cpu->I + i] >> (7 - j)) & 0x01;
+            cpu->Disp[(cpu->V[y] + i) % Y][(cpu->V[x] + j) % X] ^= bit;
+            if (bit && !cpu->Disp[(cpu->V[y] + i) % Y][(cpu->V[x] + j) % X]) {
+                cpu->V[15] = 1;
+            }
+        }
+    }
+}
+
+void SKP(Chip8 *cpu, int x) {
+    if (cpu->Input[cpu->V[x]]) {
+        cpu->PC += 2;
+    }
+}
+
+void SKNP(Chip8 *cpu, int x) {
+    if (!cpu->Input[cpu->V[x]]) {
+        cpu->PC += 2;
+    }
+}
+
+void LD_DT(Chip8 *cpu, int x) { cpu->V[x] = cpu->DT; }
+
+int LD_K(Chip8 *cpu, int x) {
+    for (int i = 0; i < 16; i++) {
+        if (cpu->Input[i]) {
+            cpu->V[x] = i;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void LD_V_DT(Chip8 *cpu, int x) { cpu->DT = cpu->V[x]; }
+
+void LD_V_ST(Chip8 *cpu, int x) { cpu->ST = cpu->V[x]; }
+
+void ADD_I(Chip8 *cpu, int x) { cpu->I += cpu->V[x]; }
+
+void LD_F(Chip8 *cpu, int x) { cpu->I = 5 * cpu->V[x]; }
+
+void LD_B(Chip8 *cpu, int x) {
+    cpu->Mem[cpu->I] = (uint8_t)(cpu->V[x] / 100);
+    cpu->Mem[cpu->I + 1] = (uint8_t)((cpu->V[x] % 100) / 10);
+    cpu->Mem[cpu->I + 2] = cpu->V[x] % 10;
 }
