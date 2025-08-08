@@ -20,7 +20,7 @@ typedef struct {
 
 } Chip8;
 
-Chip8 *createChip8(uint16_t *instr, int len);
+Chip8 *createChip8(uint16_t *instr, size_t len);
 
 void destroyChip8(Chip8 *cpu);
 
@@ -87,5 +87,9 @@ void ADD_I(Chip8 *cpu, int x);
 void LD_F(Chip8 *cpu, int x);
 
 void LD_B(Chip8 *cpu, int x);
+
+void LD_V_I(Chip8 *cpu, int x);
+
+void LD_I_V(Chip8 *cpu, int x);
 
 #endif

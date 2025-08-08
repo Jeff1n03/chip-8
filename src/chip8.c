@@ -5,7 +5,7 @@
 #define ADDR_MASK 0x0FFF
 #define NIBBLE_MASK 0x0F
 
-Chip8 *createChip8(uint16_t *instr, int len) {
+Chip8 *createChip8(uint16_t *instr, size_t len) {
     Chip8 *cpu = malloc(sizeof(Chip8));
     memset(cpu->Disp, 0, sizeof(cpu->Disp));
     memset(cpu->Input, 0, sizeof(cpu->Input));
@@ -188,4 +188,16 @@ void LD_B(Chip8 *cpu, int x) {
     cpu->Mem[cpu->I] = (uint8_t)(cpu->V[x] / 100);
     cpu->Mem[cpu->I + 1] = (uint8_t)((cpu->V[x] % 100) / 10);
     cpu->Mem[cpu->I + 2] = cpu->V[x] % 10;
+}
+
+void LD_V_I(Chip8 *cpu, int x) {
+    for (int i = 0; i <= x; i++) {
+        cpu->Mem[cpu->I + i] = cpu->V[i];
+    }
+}
+
+void LD_I_V(Chip8 *cpu, int x) {
+    for (int i = 0; i <= x; i++) {
+        cpu->V[i] = cpu->Mem[cpu->I + i];
+    }
 }
