@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static int valid(Parser *parser) {
+    /* TODO */
+    return 1;
+}
+
 Parser *parse(char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -17,7 +22,9 @@ Parser *parse(char *filename) {
     Parser *parser = malloc(sizeof(Parser));
     parser->instr = malloc(size);
     parser->len = len;
-    if (fread(parser->instr, sizeof(uint16_t), len, file) != len) {
+    if (fread(parser->instr, sizeof(uint16_t), len, file) != len ||
+        !valid(parser)) {
+        freeParser(parser);
         return NULL;
     }
     return parser;
