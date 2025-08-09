@@ -36,7 +36,11 @@ Chip8 *createChip8(uint16_t *instr, size_t len) {
     return cpu;
 }
 
-void destroyChip8(Chip8 *cpu) { free(cpu); }
+void destroyChip8(Chip8 *cpu) {
+    if (cpu != NULL) {
+        free(cpu);
+    }
+}
 
 void CLS(Chip8 *cpu) { memset(cpu->Disp, 0, sizeof(cpu->Disp)); }
 
