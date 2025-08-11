@@ -1,4 +1,4 @@
-#include "../include/chip8.h"
+#include "../include/cycle.h"
 #include "../include/parser.h"
 
 int main() {

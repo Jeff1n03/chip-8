@@ -24,6 +24,8 @@ Chip8 *createChip8(uint16_t *instr, size_t len);
 
 void destroyChip8(Chip8 *cpu);
 
+void SYS(Chip8 *cpu, uint16_t addr);
+
 void CLS(Chip8 *cpu);
 
 void RET(Chip8 *cpu);
@@ -32,64 +34,64 @@ void JP(Chip8 *cpu, uint16_t addr);
 
 void CALL(Chip8 *cpu, uint16_t addr);
 
-void SE_IMM(Chip8 *cpu, int x, uint8_t byte);
+void SE_IMM(Chip8 *cpu, uint8_t x, uint8_t byte);
 
-void SNE_IMM(Chip8 *cpu, int x, uint8_t byte);
+void SNE_IMM(Chip8 *cpu, uint8_t x, uint8_t byte);
 
-void SE(Chip8 *cpu, int x, int y);
+void SE(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void LD_IMM(Chip8 *cpu, int x, uint8_t byte);
+void LD_IMM(Chip8 *cpu, uint8_t x, uint8_t byte);
 
-void ADD_IMM(Chip8 *cpu, int x, uint8_t byte);
+void ADD_IMM(Chip8 *cpu, uint8_t x, uint8_t byte);
 
-void LD(Chip8 *cpu, int x, int y);
+void LD(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void OR(Chip8 *cpu, int x, int y);
+void OR(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void AND(Chip8 *cpu, int x, int y);
+void AND(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void XOR(Chip8 *cpu, int x, int y);
+void XOR(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void ADD(Chip8 *cpu, int x, int y);
+void ADD(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void SUB(Chip8 *cpu, int x, int y);
+void SUB(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void SHR(Chip8 *cpu, int x);
+void SHR(Chip8 *cpu, uint8_t x);
 
-void SUBN(Chip8 *cpu, int x, int y);
+void SUBN(Chip8 *cpu, uint8_t x, uint8_t y);
 
-void SHL(Chip8 *cpu, int x);
+void SHL(Chip8 *cpu, uint8_t x);
 
-void SNE(Chip8 *cpu, int x, int y);
+void SNE(Chip8 *cpu, uint8_t x, uint8_t y);
 
 void LD_I(Chip8 *cpu, uint16_t addr);
 
 void JP_V0(Chip8 *cpu, uint16_t addr);
 
-void RND(Chip8 *cpu, int x, uint8_t byte);
+void RND(Chip8 *cpu, uint8_t x, uint8_t byte);
 
-void DRW(Chip8 *cpu, int x, int y, uint8_t nibble);
+void DRW(Chip8 *cpu, uint8_t x, uint8_t y, uint8_t nibble);
 
-void SKP(Chip8 *cpu, int x);
+void SKP(Chip8 *cpu, uint8_t x);
 
-void SKNP(Chip8 *cpu, int x);
+void SKNP(Chip8 *cpu, uint8_t x);
 
-void LD_DT(Chip8 *cpu, int x);
+void LD_DT(Chip8 *cpu, uint8_t x);
 
-int LD_K(Chip8 *cpu, int x);
+uint8_t LD_K(Chip8 *cpu, uint8_t x);
 
-void LD_V_DT(Chip8 *cpu, int x);
+void LD_V_DT(Chip8 *cpu, uint8_t x);
 
-void LD_V_ST(Chip8 *cpu, int x);
+void LD_V_ST(Chip8 *cpu, uint8_t x);
 
-void ADD_I(Chip8 *cpu, int x);
+void ADD_I(Chip8 *cpu, uint8_t x);
 
-void LD_F(Chip8 *cpu, int x);
+void LD_F(Chip8 *cpu, uint8_t x);
 
-void LD_B(Chip8 *cpu, int x);
+void LD_B(Chip8 *cpu, uint8_t x);
 
-void LD_V_I(Chip8 *cpu, int x);
+void LD_V_I(Chip8 *cpu, uint8_t x);
 
-void LD_I_V(Chip8 *cpu, int x);
+void LD_I_V(Chip8 *cpu, uint8_t x);
 
 #endif
