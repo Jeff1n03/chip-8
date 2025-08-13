@@ -3,6 +3,6 @@
 
 #include "chip8.h"
 
-void cycle(Chip8 *cpu);
+bool cycle(Chip8 *cpu);
 
 #endif

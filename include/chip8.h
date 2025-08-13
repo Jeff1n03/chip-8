@@ -1,6 +1,7 @@
 #ifndef CHIP8_H
 #define CHIP8_H
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -78,7 +79,7 @@ void SKNP(Chip8 *cpu, uint8_t x);
 
 void LD_DT(Chip8 *cpu, uint8_t x);
 
-uint8_t LD_K(Chip8 *cpu, uint8_t x);
+bool LD_K(Chip8 *cpu, uint8_t x);
 
 void LD_V_DT(Chip8 *cpu, uint8_t x);
 

@@ -2,6 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static inline int isLittleEndian() {
+    uint16_t x = 0x0001;
+    return *(uint8_t *)&x;
+}
+
+static void bigEndian(uint16_t *instr, size_t len) {
+    for (int i = 0; i < len; i++) {
+        instr[i] = (instr[i] << 8) | (instr[i] >> 8);
+    }
+}
+
 Parser *parse(char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -20,6 +31,9 @@ Parser *parse(char *filename) {
     if (fread(parser->instr, sizeof(uint16_t), len, file) != len) {
         freeParser(parser);
         return NULL;
+    }
+    if (isLittleEndian()) {
+        bigEndian(parser->instr, parser->len);
     }
     return parser;
 }

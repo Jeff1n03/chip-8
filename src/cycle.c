@@ -1,5 +1,4 @@
 #include "../include/cycle.h"
-#include <stdio.h>
 
 static inline uint8_t get_opcode(uint16_t instr) {
     return (uint8_t)(instr >> 12);
@@ -25,11 +24,7 @@ static uint16_t fetch_instr(Chip8 *cpu) {
     return instr;
 }
 
-static void DNE(uint16_t instr) {
-    fprintf(stderr, "Error: Undefined Instruction %u\n", instr);
-}
-
-static void opcode_0(Chip8 *cpu, uint16_t instr) {
+static void exec_op_0(Chip8 *cpu, uint16_t instr) {
     switch (instr) {
         case 0x00E0:
             CLS(cpu);
@@ -42,17 +37,18 @@ static void opcode_0(Chip8 *cpu, uint16_t instr) {
     }
 }
 
-static void opcode_5(Chip8 *cpu, uint16_t instr) {
+static bool exec_op_5(Chip8 *cpu, uint16_t instr) {
     switch (get_n(instr)) {
         case 0x0:
             SE(cpu, get_x(instr), get_y(instr));
             break;
         default:
-            DNE(instr);
+            return false;
     }
+    return true;
 }
 
-static void opcode_8(Chip8 *cpu, uint16_t instr) {
+static bool exec_op_8(Chip8 *cpu, uint16_t instr) {
     switch (get_n(instr)) {
         case 0x0:
             LD(cpu, get_x(instr), get_y(instr));
@@ -82,21 +78,23 @@ static void opcode_8(Chip8 *cpu, uint16_t instr) {
             SHL(cpu, get_x(instr));
             break;
         default:
-            DNE(instr);
+            return false;
     }
+    return true;
 }
 
-static void opcode_9(Chip8 *cpu, uint16_t instr) {
+static bool exec_op_9(Chip8 *cpu, uint16_t instr) {
     switch (get_n(instr)) {
         case 0x0:
             SNE(cpu, get_x(instr), get_y(instr));
             break;
         default:
-            DNE(instr);
+            return false;
     }
+    return true;
 }
 
-static void opcode_E(Chip8 *cpu, uint16_t instr) {
+static bool exec_op_E(Chip8 *cpu, uint16_t instr) {
     switch (get_kk(instr)) {
         case 0x9E:
             SKP(cpu, get_x(instr));
@@ -105,25 +103,64 @@ static void opcode_E(Chip8 *cpu, uint16_t instr) {
             SKNP(cpu, get_x(instr));
             break;
         default:
-            DNE(instr);
+            return false;
     }
+    return true;
 }
 
-static void opcode_F(Chip8 *cpu, uint16_t instr) {
-    // TODO
+static bool exec_op_F(Chip8 *cpu, uint16_t instr) {
+    bool cont = true;
+    switch (get_kk(instr)) {
+        case 0x07:
+            LD_DT(cpu, get_x(instr));
+            break;
+        case 0x0A:
+            cont = LD_K(cpu, get_x(instr));
+            break;
+        case 0x15:
+            LD_V_DT(cpu, get_x(instr));
+            break;
+        case 0x18:
+            LD_V_ST(cpu, get_x(instr));
+            break;
+        case 0x1E:
+            ADD_I(cpu, get_x(instr));
+            break;
+        case 0x29:
+            LD_F(cpu, get_x(instr));
+            break;
+        case 0x33:
+            LD_B(cpu, get_x(instr));
+            break;
+        case 0x55:
+            LD_V_I(cpu, get_x(instr));
+            break;
+        case 0x65:
+            LD_I_V(cpu, get_x(instr));
+            break;
+        default:
+            return false;
+    }
+    if (!cont) {
+        cpu->PC -= 2;
+    }
+    return true;
 }
 
-void cycle(Chip8 *cpu) {
+bool cycle(Chip8 *cpu) {
+    bool def = true;
     uint16_t instr = fetch_instr(cpu);
     switch (get_opcode(instr)) {
         case 0x0:
-            opcode_0(cpu, instr);
+            exec_op_0(cpu, instr);
             break;
         case 0x1:
             JP(cpu, get_nnn(instr));
+            cpu->PC -= 2;
             break;
         case 0x2:
             CALL(cpu, get_nnn(instr));
+            cpu->PC -= 2;
             break;
         case 0x3:
             SE_IMM(cpu, get_x(instr), get_kk(instr));
@@ -132,7 +169,7 @@ void cycle(Chip8 *cpu) {
             SNE_IMM(cpu, get_x(instr), get_kk(instr));
             break;
         case 0x5:
-            opcode_5(cpu, instr);
+            def = exec_op_5(cpu, instr);
             break;
         case 0x6:
             LD_IMM(cpu, get_x(instr), get_kk(instr));
@@ -141,16 +178,17 @@ void cycle(Chip8 *cpu) {
             ADD_IMM(cpu, get_x(instr), get_kk(instr));
             break;
         case 0x8:
-            opcode_8(cpu, instr);
+            def = exec_op_8(cpu, instr);
             break;
         case 0x9:
-            opcode_9(cpu, instr);
+            def = exec_op_9(cpu, instr);
             break;
         case 0xA:
             LD_I(cpu, get_nnn(instr));
             break;
         case 0xB:
             JP_V0(cpu, get_nnn(instr));
+            cpu->PC -= 2;
             break;
         case 0xC:
             RND(cpu, get_x(instr), get_kk(instr));
@@ -159,11 +197,12 @@ void cycle(Chip8 *cpu) {
             DRW(cpu, get_x(instr), get_y(instr), get_n(instr));
             break;
         case 0xE:
-            opcode_E(cpu, instr);
+            def = exec_op_E(cpu, instr);
             break;
         case 0xF:
-            opcode_F(cpu, instr);
+            def = exec_op_F(cpu, instr);
             break;
     }
     cpu->PC += 2;
+    return def;
 }

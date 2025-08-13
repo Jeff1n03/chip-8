@@ -172,14 +172,14 @@ void SKNP(Chip8 *cpu, uint8_t x) {
 
 void LD_DT(Chip8 *cpu, uint8_t x) { cpu->V[x] = cpu->DT; }
 
-uint8_t LD_K(Chip8 *cpu, uint8_t x) {
+bool LD_K(Chip8 *cpu, uint8_t x) {
     for (int i = 0; i < 16; i++) {
         if (cpu->Input[i]) {
             cpu->V[x] = i;
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 }
 
 void LD_V_DT(Chip8 *cpu, uint8_t x) { cpu->DT = cpu->V[x]; }
