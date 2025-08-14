@@ -19,12 +19,9 @@ static inline uint8_t get_y(uint16_t instr) {
 static inline uint8_t get_kk(uint16_t instr) { return (uint8_t)instr; }
 
 static uint16_t fetch_instr(Chip8 *cpu) {
-    if (cpu->PC < sizeof(cpu->Mem)) {
-        uint16_t instr = cpu->Mem[cpu->PC];
-        instr = (instr << 8) | (uint16_t)cpu->Mem[cpu->PC + 1];
-        return instr;
-    }
-    return 0x0000;
+    uint16_t instr = cpu->Mem[cpu->PC];
+    instr = (instr << 8) | (uint16_t)cpu->Mem[cpu->PC + 1];
+    return instr;
 }
 
 static void exec_op_0(Chip8 *cpu, uint16_t instr) {
