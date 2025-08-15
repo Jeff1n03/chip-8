@@ -1,6 +1,5 @@
-#include "../include/cycle.h"
+#include "../include/loop.h"
 #include "../include/parser.h"
-#include "../include/video.h"
 #include <SDL2/SDL.h>
 
 int main(int argc, char *argv[]) {
@@ -20,21 +19,7 @@ int main(int argc, char *argv[]) {
         SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
     SDL_Renderer *rend = SDL_CreateRenderer(win, -1, 0);
     SDL_RenderSetLogicalSize(rend, X, Y);
-    bool quit = false;
-    SDL_Event e;
-    while (!quit) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP) {
-                if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {
-                    quit = true;
-                } else {
-                    /* TODO */
-                }
-            }
-        }
-        cycle(cpu);
-        video(cpu->Disp, rend);
-    }
+    loop(cpu, rend);
     SDL_DestroyRenderer(rend);
     SDL_DestroyWindow(win);
     SDL_Quit();
