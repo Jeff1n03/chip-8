@@ -1,17 +1,17 @@
 #include "../include/loop.h"
-#include "../include/parser.h"
 #include <SDL2/SDL.h>
+
+#define X 64
+#define Y 32
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         return 1;
     }
-    Parser *p = parse(argv[1]);
-    if (p == NULL) {
+    Parser *pars = parse(argv[1]);
+    if (pars == NULL) {
         return 1;
     }
-    Chip8 *cpu = createChip8(p->instr, p->len);
-    freeParser(p);
     SDL_Init(SDL_INIT_VIDEO);
     SDL_ShowCursor(SDL_DISABLE);
     SDL_Window *win = SDL_CreateWindow(
@@ -19,10 +19,11 @@ int main(int argc, char *argv[]) {
         SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
     SDL_Renderer *rend = SDL_CreateRenderer(win, -1, 0);
     SDL_RenderSetLogicalSize(rend, X, Y);
-    loop(cpu, rend);
+    while (loop(pars, rend))
+        ;
     SDL_DestroyRenderer(rend);
     SDL_DestroyWindow(win);
     SDL_Quit();
-    destroyChip8(cpu);
+    freeParser(pars);
     return 0;
 }

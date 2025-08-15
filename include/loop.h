@@ -1,9 +1,10 @@
 #ifndef LOOP_H
 #define LOOP_H
 
-#include "chip8.h"
+#include "parser.h"
 #include <SDL2/SDL_render.h>
+#include <stdbool.h>
 
-void loop(Chip8 *cpu, SDL_Renderer *rend);
+bool loop(Parser *pars, SDL_Renderer *rend);
 
 #endif
