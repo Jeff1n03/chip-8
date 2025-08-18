@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 typedef struct {
-        uint16_t *instr;
+        uint8_t *instr;
         size_t len;
 } Parser;
 

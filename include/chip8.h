@@ -21,7 +21,7 @@ typedef struct {
 
 } Chip8;
 
-Chip8 *createChip8(uint16_t *instr, size_t len);
+Chip8 *createChip8(uint8_t *instr, size_t len);
 
 void destroyChip8(Chip8 *cpu);
 

@@ -5,7 +5,7 @@
 #define ADDR_MASK 0x0FFF
 #define NIBBLE_MASK 0x0F
 
-Chip8 *createChip8(uint16_t *instr, size_t len) {
+Chip8 *createChip8(uint8_t *instr, size_t len) {
     Chip8 *cpu = malloc(sizeof(Chip8));
     memset(cpu->Disp, 0, sizeof(cpu->Disp));
     memset(cpu->Input, 0, sizeof(cpu->Input));
@@ -27,11 +27,8 @@ Chip8 *createChip8(uint16_t *instr, size_t len) {
     for (int i = 0; i < sizeof(sprites); i++) {
         cpu->Mem[i] = sprites[i];
     }
-    for (int i = 0, j = cpu->PC; i < len && j < sizeof(cpu->Mem); i++, j += 2) {
-        uint8_t most = instr[i] >> 8;
-        uint8_t least = instr[i] & 0x00FF;
-        cpu->Mem[j] = most;
-        cpu->Mem[j + 1] = least;
+    for (int i = 0; i < len && i + cpu->PC < sizeof(cpu->Mem); i++) {
+        cpu->Mem[i + cpu->PC] = instr[i];
     }
     return cpu;
 }
