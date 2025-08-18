@@ -1,5 +1,5 @@
 CC := clang
-CFLAGS := -std=c11 -Wall -g $(shell pkg-config --cflags sdl2)
+CFLAGS := -std=c11 -Wall -O2 $(shell pkg-config --cflags sdl2)
 LDFLAGS := $(shell pkg-config --libs sdl2)
 
 all: bin/chip-8
