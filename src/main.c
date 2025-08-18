@@ -1,15 +1,18 @@
 #include "../include/loop.h"
 #include <SDL2/SDL.h>
+#include <stdio.h>
 
 #define X 64
 #define Y 32
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
+        fprintf(stderr, "Error: invalid no. of arguments\n");
         return 1;
     }
     Parser *pars = parse(argv[1]);
     if (pars == NULL) {
+        fprintf(stderr, "Error: cannot read input file\n");
         return 1;
     }
     SDL_Init(SDL_INIT_VIDEO);
