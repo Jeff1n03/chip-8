@@ -1,10 +1,15 @@
 #include "../include/audio.h"
 #include <stdlib.h>
 
+#define FREQ 44100
+#define SAMPLES 1024
+
 Audio *createAudio(unsigned int freq, Sint16 amp) {
     Audio *a = malloc(sizeof(Audio));
-    SDL_AudioSpec des = {
-        .freq = 44100, .format = AUDIO_S16SYS, .channels = 1, .samples = 1024};
+    SDL_AudioSpec des = {.freq = FREQ,
+                         .format = AUDIO_S16SYS,
+                         .channels = 1,
+                         .samples = SAMPLES};
     a->dev = SDL_OpenAudioDevice(NULL, 0, &des, NULL, 0);
     size_t samples = des.freq / 60;
     a->bufSize = samples * sizeof(Sint16);

@@ -11,7 +11,7 @@ static inline double getTime(clock_t start, clock_t end) {
 
 static void input(bool *quit, bool *ret, SDL_Event *e, uint8_t input[16]) {
     if (e->type == SDL_KEYDOWN) {
-        if (e->key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+        if (e->key.keysym.scancode == SDL_SCANCODE_Q) {
             *quit = true;
         } else if (e->key.keysym.scancode == SDL_SCANCODE_R) {
             *quit = true;
