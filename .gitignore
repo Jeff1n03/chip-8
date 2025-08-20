@@ -20,3 +20,6 @@ tags
 
 # Persistent undo
 [._]*.un~
+
+# Language server files
+.clangd
