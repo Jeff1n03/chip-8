@@ -7,6 +7,11 @@
 - [SDL2 **with developer files**](https://wiki.libsdl.org/SDL2/Installation)
 # Installation
 ## macOS and Linux
-**In a terminal emulator**, run `git clone https://github.com/Jeff1n03/chip-8.git && cd chip-8 && make && sudo make install && cd .. && rm -rf chip-8`
+**In a terminal emulator**, run
+```
+git clone https://github.com/Jeff1n03/chip-8.git
+cd chip-8/ && make && sudo make install && cd ../
+rm -rf chip-8/
+```
 ## Windows
 [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install), and follow the above instructions.
