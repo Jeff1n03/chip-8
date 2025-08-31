@@ -3,7 +3,7 @@
 - `git`
 - `make`
 - `gcc` (C11 compatible)
-    > Note that `gcc` is a symbolic link to `clang` **on macOS**. This is not an issue as long as `clang` is C11 compatible.
+    > Note that `gcc` is a symbolic link to `clang` **on macOS**. This is **not** an issue as long as `clang` is C11 compatible.
 - [SDL2 **with developer files**](https://wiki.libsdl.org/SDL2/Installation)
     > For whatever reason, installation instructions using `brew` or `port` **on macOS** are not present. In a terminal emulator, **run either** `brew install sdl2` **or** `sudo port install libsdl2` depending on your package manager of choice.
 # Installation
