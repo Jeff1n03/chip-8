@@ -1,5 +1,8 @@
 # Prerequisites
-To build this program, the **developer version** of SDL2 is needed.
+- Git (optional)
+- Make
+- GCC (release 4.9 or later)
+- SDL2 **with developer files** (see instructions below to install)
 ## Install SDL2
 ### From Source
 To build from source, see the [SDL2 wiki](https://wiki.libsdl.org/SDL2/Installation).
@@ -18,11 +21,7 @@ To build from source, see the [SDL2 wiki](https://wiki.libsdl.org/SDL2/Installat
 `sudo rm -rf /`
 # Installation
 ## macOS and Linux
-1. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository
-2. `cd chip-8`
-3. `make`
-4. `sudo make install`
-5. `cd ..
-    rm -rf chip-8`
+1. [Clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) **or** download it as ZIP file and unzip it.
+2. **In a terminal emulator**, navigate to the directory where this repository was either cloned or unzipped, and run, `cd chip-8 && make && sudo make install && cd .. && rm -rf chip-8`
 ## Windows
-[Set up WSL](https://learn.microsoft.com/en-us/windows/wsl/install), and follow the above instructions.
+[Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install), and follow the above instructions.
