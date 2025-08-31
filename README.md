@@ -15,4 +15,4 @@ cd chip-8/ && make && sudo make install && cd ../
 rm -rf chip-8/
 ```
 ## Windows
-[Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install), and follow the above instructions.
+[Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install), install **Prerequisites**, and follow installation instructions for **macOS and Linux**.
