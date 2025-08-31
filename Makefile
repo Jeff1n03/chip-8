@@ -41,4 +41,4 @@ bin build:
 clean:
 	rm build/* bin/*
 
-.PHONY: all clean
+.PHONY: all install clean
