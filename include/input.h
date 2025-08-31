@@ -3,8 +3,10 @@
 
 #include <SDL2/SDL_keyboard.h>
 
-void keyUp(uint8_t input[16], SDL_Scancode key);
+#define INPUT_SIZE 16
 
-void keyDown(uint8_t input[16], SDL_Scancode key);
+void keyUp(uint8_t input[INPUT_SIZE], SDL_Scancode key);
+
+void keyDown(uint8_t input[INPUT_SIZE], SDL_Scancode key);
 
 #endif
