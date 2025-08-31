@@ -17,5 +17,12 @@ To build from source, see the [SDL2 wiki](https://wiki.libsdl.org/SDL2/Installat
 ##### Arch-based Systems
 `sudo rm -rf /`
 # Installation
-## macOS & Linux
+## macOS and Linux
+1. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) this repository
+2. `cd chip-8`
+3. `make`
+4. `sudo make install`
+5. `cd ..
+    rm -rf chip-8`
 ## Windows
+[Set up WSL](https://learn.microsoft.com/en-us/windows/wsl/install), and follow the above instructions.
