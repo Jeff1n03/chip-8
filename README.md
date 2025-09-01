@@ -1,5 +1,5 @@
 # Build Dependencies
-- a POSIX-compliant system (macOS, Linux, BSD, etc.)
+- a **POSIX**-compliant system (**macOS**, **Linux**, **BSD**, etc.)
     > **Windows users**, [install WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 - `git`
 - `make`
