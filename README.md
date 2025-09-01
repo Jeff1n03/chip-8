@@ -1,5 +1,5 @@
 # Build Dependencies
-- a POSIX-compliant system
+- a POSIX-compliant system (macOS, Linux, BSD, etc.)
 - `git`
 - `make`
 - `gcc` (supports C11)
