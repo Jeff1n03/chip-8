@@ -14,10 +14,12 @@ git clone --depth 1 https://github.com/Jeff1n03/chip-8.git && \
 cd chip-8/ && make && sudo make install && cd ../ && \
 rm -rf chip-8/
 ```
+and enter your **user account password**, if prompted.
 # Uninstallation Guide
 **In a terminal emulator**, run
 ```sh
 sudo rm -f /usr/local/bin/chip-8 /usr/local/share/man/man1/chip-8.1
 ```
+and enter your **user account password**, if prompted.
 # Resources
 **In a terminal emulator**, run `man 1 chip-8`.
