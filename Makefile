@@ -4,9 +4,15 @@ LDFLAGS := $(shell pkg-config --libs sdl2)
 
 all: bin/chip-8
 
-install: bin/chip-8
+install: install-bin install-man
+
+install-bin: bin/chip-8
 	install -d /usr/local/bin/
 	install -m 755 $< /usr/local/bin/
+
+install-man: man/man1/chip-8.1
+	install -d /usr/local/share/man/man1/
+	install -m 644 $< /usr/local/share/man/man1/
 
 bin/chip-8: build/main.o build/chip8.o build/parser.o build/cycle.o build/video.o build/input.o build/loop.o build/audio.o | bin
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@

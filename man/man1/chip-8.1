@@ -1,0 +1,42 @@
+.TH CHIP\-8 1
+.SH NAME
+chip\-8 \- a CHIP\-8 emulator
+.SH SYNOPSIS
+.B chip\-8
+.IR file
+.SH DESCRIPTION
+The
+.B chip\-8
+utility executes CHIP\-8 read-only memory (rom) files on emulated CHIP\-8 hardware.
+.SH INTERACTION
+To interact with the emulator, refer to the following keymap:
+.TS
+allbox tab(;);
+c c.
+System Input;CHIP\-8 Input
+_
+,;0
+7;1
+8;2
+9;3
+u;4
+i;5
+o;6
+j;7
+k;8
+l;9
+m;A
+\&\.;B
+0;C
+p;D
+\;;E
+/;F
+.TE
+Additionally, \fBq\fR and \fBr\fR, \fBquit\fR and \fBrestart\fR the emulator, respectively.
+.SH EXIT STATUS
+The
+.B chip\-8
+utility returns 0 on success, and 1 on failure.
+.SH AUTHOR
+.B chip\-8
+was written by Jeffin Jacob.
